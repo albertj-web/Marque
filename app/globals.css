@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Marque — brass/gold on near-black, light neutral content */
+    --background: 40 33% 98%;
+    --foreground: 0 0% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 12%;
+    --primary: 38 62% 52%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 30 10% 95%;
+    --secondary-foreground: 0 0% 20%;
+    --muted: 30 10% 94%;
+    --muted-foreground: 0 0% 42%;
+    --accent: 38 45% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 30 8% 88%;
+    --input: 30 8% 88%;
+    --ring: 38 62% 52%;
+    --radius: 0.5rem;
+
+    /* Near-black base for dark sections */
+    --ink: 20 14% 10%;
+    --ink-foreground: 40 20% 92%;
+    --brass: 38 62% 52%;
+    --brass-light: 40 55% 68%;
+
+    --chart-1: 38 62% 52%;
+    --chart-2: 160 40% 42%;
+    --chart-3: 200 50% 42%;
+    --chart-4: 12 70% 55%;
+    --chart-5: 280 50% 60%;
+  }
+  .dark {
+    --background: 20 14% 10%;
+    --foreground: 40 20% 92%;
+    --card: 20 14% 13%;
+    --card-foreground: 40 20% 92%;
+    --popover: 20 14% 13%;
+    --popover-foreground: 40 20% 92%;
+    --primary: 38 62% 52%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 20 10% 18%;
+    --secondary-foreground: 40 20% 92%;
+    --muted: 20 10% 16%;
+    --muted-foreground: 40 8% 62%;
+    --accent: 38 45% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 20 10% 22%;
+    --input: 20 10% 22%;
+    --ring: 38 62% 52%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+}
+
+@layer utilities {
+  .font-mono-num {
+    font-family: var(--font-plex-mono), monospace;
+    font-variant-numeric: tabular-nums;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .bg-ink {
+    background-color: hsl(var(--ink));
+  }
+  .text-ink-foreground {
+    color: hsl(var(--ink-foreground));
+  }
+  .text-brass {
+    color: hsl(var(--brass));
+  }
+  .bg-brass {
+    background-color: hsl(var(--brass));
+  }
+  .border-brass {
+    border-color: hsl(var(--brass));
+  }
+}
+
+/* Thin scrollbar for admin */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 3px;
+}
+
+/* Print styles for contracts & receipts */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .print-page {
+    margin: 0;
+    padding: 0;
+    max-width: none;
+  }
+}
+.print-only {
+  display: none;
+}
