@@ -30,6 +30,7 @@ import {
   ChevronDown,
   ChevronRight,
   Pencil,
+  Landmark,
 } from 'lucide-react';
 
 interface LoanRow extends Loan {
@@ -344,37 +345,57 @@ export default function AdminLoansPage() {
                 )}
               >
                 <div
-                  className="flex items-start gap-3 p-4 cursor-pointer hover:bg-muted/30"
+                  className="p-4 cursor-pointer hover:bg-muted/30"
                   onClick={() => toggleRow(loan.id)}
                 >
-                  {expanded ? <ChevronDown size={16} className="mt-0.5 shrink-0 text-muted-foreground" /> : <ChevronRight size={16} className="mt-0.5 shrink-0 text-muted-foreground" />}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <p className="font-medium truncate">
-                        {loan.customer?.name || 'Unknown'}
-                      </p>
-                      <span className={cn('inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium', statusColor(loan.status))}>
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-start gap-3 min-w-0">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brass/10 text-brass">
+                        <Landmark size={18} />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="font-serif font-semibold truncate">
+                          {loan.customer?.name || 'Unknown'}
+                        </p>
+                        <p className="text-sm text-brass truncate">
+                          {loan.vehicle ? `${loan.vehicle.year || ''} ${loan.vehicle.make} ${loan.vehicle.model}` : 'No vehicle linked'}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex flex-col items-end gap-1.5 shrink-0">
+                      <span className={cn('inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium', statusColor(loan.status))}>
                         {statusLabel(loan.status)}
                       </span>
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-0.5">
-                      {loan.vehicle ? `${loan.vehicle.make} ${loan.vehicle.model} ${loan.vehicle.year || ''}` : 'No vehicle linked'}
-                      {' · '}
-                      {formatDate(loan.contract_date || loan.created_at)}
-                    </p>
-                    <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground font-mono-num">
-                      <span>Price: <span className="text-foreground">{formatKES(loan.vehicle_price)}</span></span>
-                      <span>Deposit: <span className="text-foreground">{formatKES(loan.deposit)}</span></span>
-                      <span>Balance: <span className="text-foreground">{formatKES(loan.balance)}</span></span>
-                      <span>Monthly: <span className="text-foreground">{formatKES(loan.monthly_payment)}</span></span>
-                      <span>Duration: <span className="text-foreground">{loan.duration_months} mo</span></span>
-                      <span>Interest: <span className="text-foreground">{loan.interest_rate}%</span></span>
-                      <span>Payments: <span className="text-foreground">{loan.payments_count?.[0]?.count ?? 0}</span></span>
+                      {expanded ? <ChevronDown size={14} className="text-muted-foreground" /> : <ChevronRight size={14} className="text-muted-foreground" />}
                     </div>
                   </div>
-                  <div className="text-right shrink-0">
-                    <p className="font-mono-num text-sm font-semibold">{formatKES(loan.remaining_balance)}</p>
-                    <p className="text-xs text-muted-foreground">Remaining of {formatKES(loan.balance)}</p>
+
+                  <div className="mt-4 grid grid-cols-2 gap-x-6 gap-y-3 text-sm">
+                    <div>
+                      <p className="text-xs uppercase tracking-wider text-muted-foreground">Vehicle Price</p>
+                      <p className="mt-0.5 font-mono-num font-semibold">{formatKES(loan.vehicle_price)}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs uppercase tracking-wider text-muted-foreground">Deposit</p>
+                      <p className="mt-0.5 font-mono-num font-semibold">{formatKES(loan.deposit)}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs uppercase tracking-wider text-muted-foreground">Monthly</p>
+                      <p className="mt-0.5 font-mono-num font-semibold text-emerald-500">{formatKES(loan.monthly_payment)}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs uppercase tracking-wider text-muted-foreground">Remaining</p>
+                      <p className="mt-0.5 font-mono-num font-semibold">{formatKES(loan.remaining_balance)}</p>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 flex items-center justify-between border-t border-border pt-3 text-xs text-muted-foreground">
+                    <span>{loan.duration_months} months @ {loan.interest_rate}% APR</span>
+                    <span>
+                      {loan.payments_count?.[0]?.count ?? 0} {(loan.payments_count?.[0]?.count ?? 0) === 1 ? 'payment' : 'payments'}
+                      {' · '}
+                      {formatKES(loan.balance - loan.remaining_balance)} paid
+                    </span>
                   </div>
                 </div>
 
