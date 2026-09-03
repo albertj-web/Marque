@@ -35,6 +35,7 @@ import {
 interface LoanRow extends Loan {
   customer: Pick<Customer, 'name' | 'phone' | 'id_number'> | null;
   vehicle: Pick<Vehicle, 'make' | 'model' | 'year' | 'reg_no'> | null;
+  payments_count: { count: number }[];
 }
 
 const emptyForm = {
@@ -72,9 +73,9 @@ export default function AdminLoansPage() {
   const fetchLoans = useCallback(async () => {
     const { data } = await supabase
       .from('loans')
-      .select('*, customer:customers(name, phone, id_number), vehicle:vehicles(make, model, year, reg_no)')
+      .select('*, customer:customers(name, phone, id_number), vehicle:vehicles(make, model, year, reg_no), payments_count:payments(count)')
       .order('created_at', { ascending: false });
-    setLoans((data as LoanRow[]) || []);
+    setLoans((data as unknown as LoanRow[]) || []);
     setLoading(false);
   }, []);
 
@@ -337,10 +338,10 @@ export default function AdminLoansPage() {
             return (
               <div key={loan.id} className="rounded-lg border border-border bg-card overflow-hidden">
                 <div
-                  className="flex items-center gap-3 p-4 cursor-pointer hover:bg-muted/30"
+                  className="flex items-start gap-3 p-4 cursor-pointer hover:bg-muted/30"
                   onClick={() => toggleRow(loan.id)}
                 >
-                  {expanded ? <ChevronDown size={16} className="text-muted-foreground" /> : <ChevronRight size={16} className="text-muted-foreground" />}
+                  {expanded ? <ChevronDown size={16} className="mt-0.5 shrink-0 text-muted-foreground" /> : <ChevronRight size={16} className="mt-0.5 shrink-0 text-muted-foreground" />}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
                       <p className="font-medium truncate">
@@ -355,6 +356,14 @@ export default function AdminLoansPage() {
                       {' · '}
                       {formatDate(loan.contract_date || loan.created_at)}
                     </p>
+                    <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground font-mono-num">
+                      <span>Price: <span className="text-foreground">{formatKES(loan.vehicle_price)}</span></span>
+                      <span>Deposit: <span className="text-foreground">{formatKES(loan.deposit)}</span></span>
+                      <span>Balance: <span className="text-foreground">{formatKES(loan.balance)}</span></span>
+                      <span>Monthly: <span className="text-foreground">{formatKES(loan.monthly_payment)}</span></span>
+                      <span>Duration: <span className="text-foreground">{loan.duration_months} mo</span></span>
+                      <span>Payments: <span className="text-foreground">{loan.payments_count?.[0]?.count ?? 0}</span></span>
+                    </div>
                   </div>
                   <div className="text-right shrink-0">
                     <p className="font-mono-num text-sm font-semibold">{formatKES(loan.remaining_balance)}</p>
