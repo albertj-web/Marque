@@ -330,13 +330,19 @@ export default function AdminLoansPage() {
       </div>
 
       {loans.length > 0 ? (
-        <div className="space-y-3">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 items-start">
           {loans.map((loan) => {
             const expanded = expandedRow === loan.id;
             const payments = loanPayments[loan.id] || [];
             const balanceItems = loanBalanceItems[loan.id] || [];
             return (
-              <div key={loan.id} className="rounded-lg border border-border bg-card overflow-hidden">
+              <div
+                key={loan.id}
+                className={cn(
+                  'rounded-lg border border-border bg-card overflow-hidden',
+                  expanded && 'lg:col-span-2',
+                )}
+              >
                 <div
                   className="flex items-start gap-3 p-4 cursor-pointer hover:bg-muted/30"
                   onClick={() => toggleRow(loan.id)}
@@ -362,6 +368,7 @@ export default function AdminLoansPage() {
                       <span>Balance: <span className="text-foreground">{formatKES(loan.balance)}</span></span>
                       <span>Monthly: <span className="text-foreground">{formatKES(loan.monthly_payment)}</span></span>
                       <span>Duration: <span className="text-foreground">{loan.duration_months} mo</span></span>
+                      <span>Interest: <span className="text-foreground">{loan.interest_rate}%</span></span>
                       <span>Payments: <span className="text-foreground">{loan.payments_count?.[0]?.count ?? 0}</span></span>
                     </div>
                   </div>
