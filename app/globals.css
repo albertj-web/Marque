@@ -79,21 +79,6 @@
   .text-balance {
     text-wrap: balance;
   }
-  .bg-ink {
-    background-color: hsl(var(--ink));
-  }
-  .text-ink-foreground {
-    color: hsl(var(--ink-foreground));
-  }
-  .text-brass {
-    color: hsl(var(--brass));
-  }
-  .bg-brass {
-    background-color: hsl(var(--brass));
-  }
-  .border-brass {
-    border-color: hsl(var(--brass));
-  }
 }
 
 /* Thin scrollbar for admin */
