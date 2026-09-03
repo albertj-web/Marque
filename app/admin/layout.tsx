@@ -15,6 +15,7 @@ import {
   Menu,
   X,
   ScrollText,
+  Home,
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -105,7 +106,14 @@ export default function AdminLayout({
           })}
         </nav>
 
-        <div className="mt-auto p-4">
+        <div className="mt-auto p-4 flex flex-col gap-1">
+          <Link
+            href="/"
+            className="flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium text-white/60 hover:bg-white/5 hover:text-white transition-colors"
+          >
+            <Home size={18} />
+            View Site
+          </Link>
           <button
             onClick={() => signOut().then(() => router.push('/admin/login'))}
             className="flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium text-white/60 hover:bg-white/5 hover:text-white transition-colors w-full"
