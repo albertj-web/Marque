@@ -124,20 +124,26 @@ export default function ContractPage({ params }: { params: { id: string } }) {
           <h3 className="font-bold text-sm uppercase tracking-wider mb-3 print:mb-1.5 print:text-[10px] border-b border-gray-300 pb-1 print:pb-0.5">
             Vehicle Description
           </h3>
-          <table className="w-full text-sm">
-            <tbody>
-              <SpecRow label="Make" value={vehicle?.make} />
-              <SpecRow label="Model" value={vehicle?.model} />
-              <SpecRow label="Year of Manufacture" value={vehicle?.year?.toString()} />
-              <SpecRow label="Registration Number" value={vehicle?.reg_no} />
-              <SpecRow label="VIN / Chassis Number" value={vehicle?.chassis_no || vehicle?.vin} />
-              <SpecRow label="Engine Number" value={vehicle?.engine_no} />
-              <SpecRow label="Colour" value={vehicle?.colour} />
-              <SpecRow label="Fuel Type" value={vehicle?.fuel_type} />
-              <SpecRow label="Engine Capacity" value={vehicle?.engine_capacity} />
-              {vehicle?.mileage != null && <SpecRow label="Mileage" value={`${vehicle.mileage.toLocaleString()} km`} />}
-            </tbody>
-          </table>
+          <div className="grid grid-cols-2 gap-x-8">
+            <table className="w-full text-sm">
+              <tbody>
+                <SpecRow label="Make" value={vehicle?.make} />
+                <SpecRow label="Model" value={vehicle?.model} />
+                <SpecRow label="Year of Manufacture" value={vehicle?.year?.toString()} />
+                <SpecRow label="Registration Number" value={vehicle?.reg_no} />
+                <SpecRow label="VIN / Chassis Number" value={vehicle?.chassis_no || vehicle?.vin} />
+              </tbody>
+            </table>
+            <table className="w-full text-sm">
+              <tbody>
+                <SpecRow label="Engine Number" value={vehicle?.engine_no} />
+                <SpecRow label="Colour" value={vehicle?.colour} />
+                <SpecRow label="Fuel Type" value={vehicle?.fuel_type} />
+                <SpecRow label="Engine Capacity" value={vehicle?.engine_capacity} />
+                {vehicle?.mileage != null && <SpecRow label="Mileage" value={`${vehicle.mileage.toLocaleString()} km`} />}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         {/* Buyer details */}

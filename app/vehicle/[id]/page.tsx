@@ -164,22 +164,22 @@ export default function VehicleDetailPage({
         {/* Specs */}
         <div className="mt-12">
           <h2 className="font-serif text-2xl font-semibold mb-6">Full Specifications</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
             {specs.map((spec) => {
               const Icon = spec.icon;
               return (
                 <div
                   key={spec.label}
-                  className="flex items-center gap-3 rounded-lg border border-border bg-card p-4"
+                  className="flex items-center gap-2.5 sm:gap-3 rounded-lg border border-border bg-card p-3 sm:p-4 min-w-0"
                 >
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-secondary">
-                    <Icon size={18} className="text-muted-foreground" />
+                  <div className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-full bg-secondary">
+                    <Icon size={16} className="text-muted-foreground" />
                   </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground uppercase tracking-wider">
+                  <div className="min-w-0">
+                    <p className="text-xs text-muted-foreground uppercase tracking-wider truncate">
                       {spec.label}
                     </p>
-                    <p className="text-sm font-medium font-mono-num mt-0.5">{spec.value}</p>
+                    <p className="text-sm font-medium font-mono-num mt-0.5 truncate">{spec.value}</p>
                   </div>
                 </div>
               );
