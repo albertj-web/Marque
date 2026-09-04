@@ -5,7 +5,7 @@ import { supabase } from '@/lib/supabase';
 import { Vehicle } from '@/lib/types';
 import { formatKES, categoryLabel, statusColor, statusLabel } from '@/lib/format';
 import { cn } from '@/lib/utils';
-import { ArrowLeft, Check, Fuel, Gauge, Palette, Calendar, MessageCircle, Phone } from 'lucide-react';
+import { ArrowLeft, Check, Fuel, Gauge, Palette, Calendar, MessageCircle, Phone, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
@@ -17,6 +17,7 @@ export default function VehicleDetailPage({
   const id = params.id;
   const [vehicle, setVehicle] = useState<Vehicle | null>(null);
   const [loading, setLoading] = useState(true);
+  const [activeImage, setActiveImage] = useState(0);
 
   useEffect(() => {
     if (!id) return;
@@ -27,6 +28,7 @@ export default function VehicleDetailPage({
       .maybeSingle()
       .then(({ data }) => {
         setVehicle(data as Vehicle | null);
+        setActiveImage(0);
         setLoading(false);
       });
   }, [id]);
@@ -80,21 +82,56 @@ export default function VehicleDetailPage({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Gallery */}
           <div>
-            <div className="overflow-hidden rounded-lg border border-border bg-muted aspect-[4/3]">
+            <div className="relative overflow-hidden rounded-lg border border-border bg-muted aspect-[4/3]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={vehicle.images?.[0] || 'https://images.pexels.com/photos/38570/lamborghini-car-speed-prestige-38570.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'}
+                src={vehicle.images?.[activeImage] || 'https://images.pexels.com/photos/38570/lamborghini-car-speed-prestige-38570.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'}
                 alt={`${vehicle.make} ${vehicle.model}`}
                 className="h-full w-full object-cover"
               />
+              {vehicle.images && vehicle.images.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setActiveImage((i) => (i - 1 + vehicle.images.length) % vehicle.images.length)
+                    }
+                    aria-label="Previous image"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 grid h-9 w-9 place-items-center rounded-full bg-ink/70 text-white backdrop-blur-sm transition-colors hover:bg-ink"
+                  >
+                    <ChevronLeft size={18} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveImage((i) => (i + 1) % vehicle.images.length)}
+                    aria-label="Next image"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 grid h-9 w-9 place-items-center rounded-full bg-ink/70 text-white backdrop-blur-sm transition-colors hover:bg-ink"
+                  >
+                    <ChevronRight size={18} />
+                  </button>
+                  <span className="absolute bottom-3 right-3 rounded-full bg-ink/70 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm font-mono-num">
+                    {activeImage + 1} / {vehicle.images.length}
+                  </span>
+                </>
+              )}
             </div>
             {vehicle.images && vehicle.images.length > 1 && (
               <div className="mt-4 grid grid-cols-4 gap-3">
                 {vehicle.images.slice(0, 8).map((img, i) => (
-                  <div key={i} className="overflow-hidden rounded-md border border-border aspect-square bg-muted">
+                  <button
+                    type="button"
+                    key={i}
+                    onClick={() => setActiveImage(i)}
+                    aria-label={`View image ${i + 1}`}
+                    aria-current={activeImage === i}
+                    className={cn(
+                      'overflow-hidden rounded-md border-2 aspect-square bg-muted transition-colors',
+                      activeImage === i ? 'border-brass' : 'border-border hover:border-brass/50',
+                    )}
+                  >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={img} alt={`View ${i + 1}`} className="h-full w-full object-cover" />
-                  </div>
+                  </button>
                 ))}
               </div>
             )}
