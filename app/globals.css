@@ -96,6 +96,10 @@
 
 /* Print styles for contracts & receipts */
 @media print {
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
   .no-print {
     display: none !important;
   }

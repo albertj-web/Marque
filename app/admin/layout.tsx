@@ -17,6 +17,7 @@ import {
   ScrollText,
   Home,
 } from 'lucide-react';
+import { ThemeToggle } from '@/components/theme-toggle';
 import { useState } from 'react';
 
 const navItems = [
@@ -107,6 +108,10 @@ export default function AdminLayout({
         </nav>
 
         <div className="mt-auto p-4 flex flex-col gap-1">
+          <div className="flex items-center justify-between px-3 py-1">
+            <span className="text-xs font-medium text-white/40">Theme</span>
+            <ThemeToggle className="border-white/20 text-white/70 hover:border-brass hover:text-brass" />
+          </div>
           <Link
             href="/"
             className="flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium text-white/60 hover:bg-white/5 hover:text-white transition-colors"

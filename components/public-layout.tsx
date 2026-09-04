@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -46,7 +47,8 @@ export function PublicHeader() {
             ))}
           </nav>
 
-          <div className="hidden md:flex items-center">
+          <div className="hidden md:flex items-center gap-4">
+            <ThemeToggle className="border-white/20 text-white/70 hover:border-brass hover:text-brass" />
             <Link
               href="/admin"
               className="text-sm font-medium text-white/50 hover:text-brass transition-colors"
@@ -55,13 +57,16 @@ export function PublicHeader() {
             </Link>
           </div>
 
-          <button
-            className="md:hidden text-white"
-            onClick={() => setOpen(!open)}
-            aria-label="Toggle menu"
-          >
-            {open ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="flex items-center gap-2 md:hidden">
+            <ThemeToggle className="border-white/20 text-white/70 hover:border-brass hover:text-brass" />
+            <button
+              className="text-white"
+              onClick={() => setOpen(!open)}
+              aria-label="Toggle menu"
+            >
+              {open ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 
