@@ -32,7 +32,9 @@ function HeaderNav() {
     <header className="sticky top-0 z-50 bg-ink/95 backdrop-blur-sm border-b border-white/5">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2.5">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo-mark.svg" alt="" className="h-9 w-9" />
             <span className="font-serif text-2xl font-bold tracking-tight text-white">
               Marque
             </span>
@@ -120,7 +122,11 @@ export function PublicFooter() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <span className="font-serif text-2xl font-bold text-white">Marque</span>
+            <div className="flex items-center gap-2.5">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo-mark.svg" alt="" className="h-8 w-8" />
+              <span className="font-serif text-2xl font-bold text-white">Marque</span>
+            </div>
             <p className="mt-3 text-sm leading-relaxed">
               A curated marketplace for luxury vehicles, private sales, rentals,
               and motorbikes. Sourced with discretion, sold with integrity.

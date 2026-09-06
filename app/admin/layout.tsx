@@ -73,7 +73,9 @@ export default function AdminLayout({
         )}
       >
         <div className="flex h-16 items-center justify-between px-6 border-b border-white/5">
-          <Link href="/admin" className="font-serif text-xl font-bold text-white">
+          <Link href="/admin" className="flex items-center gap-2 font-serif text-xl font-bold text-white">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo-mark.svg" alt="" className="h-8 w-8" />
             Marque
           </Link>
           <button
@@ -143,7 +145,11 @@ export default function AdminLayout({
           <button onClick={() => setSidebarOpen(true)} className="text-foreground">
             <Menu size={24} />
           </button>
-          <span className="font-serif text-lg font-semibold">Marque Admin</span>
+          <span className="flex items-center gap-1.5 font-serif text-lg font-semibold">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo-mark.svg" alt="" className="h-6 w-6" />
+            Marque Admin
+          </span>
           <div className="w-6" />
         </header>
 

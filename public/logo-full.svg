@@ -1,0 +1,29 @@
+<svg width="340" height="230" viewBox="0 0 680 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="marque-logo-title">
+<title id="marque-logo-title">Marque — Luxury Automotive</title>
+<defs>
+<linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#e8cd94"/>
+<stop offset="45%" stop-color="#c99a4b"/>
+<stop offset="100%" stop-color="#9a6f2e"/>
+</linearGradient>
+</defs>
+
+<circle cx="340" cy="150" r="88" fill="none" stroke="url(#gold)" stroke-width="2"/>
+<circle cx="340" cy="150" r="76" fill="none" stroke="url(#gold)" stroke-width="1"/>
+
+<path d="M300 122 Q292 108 308 100" fill="none" stroke="url(#gold)" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M380 122 Q388 108 372 100" fill="none" stroke="url(#gold)" stroke-width="1.5" stroke-linecap="round"/>
+
+<text x="340" y="182" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="86" fill="url(#gold)">M</text>
+
+<path d="M300 200 Q292 214 308 222" fill="none" stroke="url(#gold)" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M380 200 Q388 214 372 222" fill="none" stroke="url(#gold)" stroke-width="1.5" stroke-linecap="round"/>
+
+<text x="340" y="320" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="42" letter-spacing="10" fill="url(#gold)">MARQUE</text>
+
+<line x1="230" y1="355" x2="300" y2="355" stroke="url(#gold)" stroke-width="1"/>
+<path d="M330 355 L340 345 L350 355 L340 365 Z" fill="url(#gold)"/>
+<line x1="380" y1="355" x2="450" y2="355" stroke="url(#gold)" stroke-width="1"/>
+
+<text x="340" y="400" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" letter-spacing="4" fill="#8a7a63">LUXURY AUTOMOTIVE</text>
+</svg>

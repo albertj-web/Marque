@@ -42,6 +42,8 @@ export default function AdminLoginPage() {
     <div className="min-h-screen bg-ink flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo-mark.svg" alt="Marque" className="h-20 w-20 mx-auto mb-3" />
           <h1 className="font-serif text-3xl font-bold text-white">Marque</h1>
           <p className="mt-2 text-sm text-white/50">Dealership Administration</p>
         </div>
