@@ -1,8 +1,8 @@
 'use client';
 
+import { Suspense, useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -16,9 +16,17 @@ const navLinks = [
   { href: '/browse?category=motorbike', label: 'Motorbikes' },
 ];
 
-export function PublicHeader() {
+function HeaderNav() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [open, setOpen] = useState(false);
+
+  const isActive = (href: string) => {
+    const [path, query] = href.split('?');
+    if (path !== pathname) return false;
+    const linkCategory = query ? new URLSearchParams(query).get('category') : null;
+    return linkCategory === searchParams.get('category');
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-ink/95 backdrop-blur-sm border-b border-white/5">
@@ -37,9 +45,7 @@ export function PublicHeader() {
                 href={link.href}
                 className={cn(
                   'text-sm font-medium transition-colors hover:text-brass',
-                  pathname === link.href.split('?')[0]
-                    ? 'text-brass'
-                    : 'text-white/70',
+                  isActive(link.href) ? 'text-brass' : 'text-white/70',
                 )}
               >
                 {link.label}
@@ -78,7 +84,10 @@ export function PublicHeader() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="text-sm font-medium text-white/70 hover:text-brass py-2"
+                className={cn(
+                  'text-sm font-medium py-2 transition-colors hover:text-brass',
+                  isActive(link.href) ? 'text-brass' : 'text-white/70',
+                )}
               >
                 {link.label}
               </Link>
@@ -94,6 +103,14 @@ export function PublicHeader() {
         </div>
       )}
     </header>
+  );
+}
+
+export function PublicHeader() {
+  return (
+    <Suspense fallback={<div className="sticky top-0 z-50 h-16 bg-ink/95 border-b border-white/5" />}>
+      <HeaderNav />
+    </Suspense>
   );
 }
 
